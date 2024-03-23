@@ -10,6 +10,7 @@ import { Text } from '../../../foundation/components/Text';
 import { useImage } from '../../../foundation/hooks/useImage';
 import { Color, Radius, Space, Typography } from '../../../foundation/styles/variables';
 import { useEpisode } from '../hooks/useEpisode';
+import type { GetEpisodeListResponse_episode } from '@wsh-2024/schema/src/api/episodes/GetEpisodeListResponse';
 
 const _Wrapper = styled.li`
   width: 100%;
@@ -30,10 +31,11 @@ const _ImgWrapper = styled.div`
 type Props = {
   bookId: string;
   episodeId: string;
+  episode: GetEpisodeListResponse_episode;
 };
 
-export const EpisodeListItem: React.FC<Props> = ({ bookId, episodeId }) => {
-  const { data: episode } = useEpisode({ params: { episodeId } });
+export const EpisodeListItem: React.FC<Props> = ({ bookId, episodeId, episode}) => {
+  // const { data: episode } = useEpisode({ params: { episodeId } });
 
   const imageUrl = useImage({ height: 96, imageId: episode.image.id, width: 96 });
 
