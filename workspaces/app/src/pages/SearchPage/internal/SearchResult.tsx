@@ -41,7 +41,7 @@ export const SearchResult: React.FC<Props> = ({
         }
       >
         {relatedBooks.map((book) => (
-          <BookListItem key={book.id} bookId={book.id} />
+          <BookListItem key={book.id} bookId={book.id} book={book} />
         ))}
         {relatedBooks.length === 0 && (
           <Text color={Color.MONO_100} typography={Typography.NORMAL14}>
