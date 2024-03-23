@@ -1,4 +1,11 @@
-import * as Icons from '@mui/icons-material';
+import ArrowBack from '@mui/icons-material/ArrowBack'
+import NavigateNext from '@mui/icons-material/NavigateNext'
+import Close from '@mui/icons-material/Close'
+import Search from '@mui/icons-material/Search'
+import Favorite from '@mui/icons-material/Favorite'
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder'
+
+const Icons = {ArrowBack,NavigateNext, Close, Search, Favorite, FavoriteBorder }
 
 type Props = {
   color: string;

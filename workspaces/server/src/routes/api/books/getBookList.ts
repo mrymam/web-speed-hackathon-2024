@@ -5,6 +5,13 @@ import { GetBookListResponseSchema } from '@wsh-2024/schema/src/api/books/GetBoo
 
 import { bookRepository } from '../../../repositories';
 
+import { init as ucaInit } from 'unicode-collation-algorithm2';
+import { isContains } from '../../../lib/filter/isContainer'
+
+// /src/lib/filter/isContains
+
+ucaInit();
+
 const app = new OpenAPIHono();
 
 const route = createRoute({
@@ -33,7 +40,19 @@ app.openapi(route, async (c) => {
   if (res.isErr()) {
     throw res.error;
   }
-  return c.json(res.value);
+  let books = res.value
+  if (!!query.name || !!query.authorName) {
+    books = books.filter((book) => {
+      if (!!query.name && isContains({ query: query.name, target: book.name })) {
+        return true
+      }
+      if (!!query.authorName && isContains({ query: query.authorName, target: book.nameRuby })) {
+        return true
+      } 
+      return false
+  });
+  }
+  return c.json(books);
 });
 
 export { app as getBookListApp };

@@ -1,5 +1,4 @@
-import { Suspense, useCallback, useEffect, useId, useState } from 'react';
-
+import { Suspense, useCallback, useEffect, useId, useState, useMemo } from 'react';
 import { useBookList } from '../../features/book/hooks/useBookList';
 import { Box } from '../../foundation/components/Box';
 import { Text } from '../../foundation/components/Text';
@@ -7,14 +6,24 @@ import { Color, Space, Typography } from '../../foundation/styles/variables';
 
 import { Input } from './internal/Input';
 import { SearchResult } from './internal/SearchResult';
+import { GetBookListResponse } from '@wsh-2024/schema/src/api/books/GetBookListResponse';
 
 const SearchPage: React.FC = () => {
-  const { data: books } = useBookList({ query: {} });
-
   const searchResultsA11yId = useId();
 
   const [isClient, setIsClient] = useState(false);
   const [keyword, setKeyword] = useState('');
+  // const [books, setBooks] = useState<GetBookListResponse>([])
+  
+  // const { data: books } = useBookList({ query: {
+  //   name: keyword,
+  //   authorName: keyword,
+  // } });
+  // console.log(books)
+
+  // return books.filter((book) => {
+  //   return isContains({ query: keyword, target: book.name }) || isContains({ query: keyword, target: book.nameRuby });
+  // });
 
   const onChangedInput = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,6 +31,11 @@ const SearchPage: React.FC = () => {
     },
     [setKeyword],
   );
+
+  const { data: books } = useBookList({ query: {
+    name: keyword,
+    authorName: keyword,
+  }});
 
   useEffect(() => {
     setIsClient(true);
