@@ -23,6 +23,57 @@ export default defineConfig(async (): Promise<Options[]> => {
       entry: {
         client: path.resolve(PACKAGE_DIR, './src/index.tsx'),
         admin:  path.resolve(PACKAGE_DIR, './src/index_admin.tsx'),
+      },
+      env: {
+        API_URL: '',
+        NODE_ENV: 'production',
+        // NODE_ENV: process.env['NODE_ENV'] || 'development',
+        PATH_LIST: IMAGE_PATH_LIST.join(',') || '',
+      },
+      esbuildOptions(options) {
+        options.define = {
+          ...options.define,
+          global: 'globalThis',
+        };
+        options.publicPath = '/';
+      },
+      esbuildPlugins: [
+        polyfillNode({
+          globals: {
+            process: false,
+          },
+          polyfills: {
+            // events: true,
+            // fs: true,
+            // path: true,
+          },
+        }),
+      ],
+      format: [
+        // 'iife', 
+        "esm"
+      ],
+      loader: {
+        // '.json?file': 'file',
+        // '.wasm': 'binary', 
+      },
+      metafile: true,
+      minify: true,
+      outDir: OUTPUT_DIR,
+      platform: 'browser',
+      shims: false,
+      // sourcemap: 'inline',
+      splitting: true,
+      // target: ['chrome58', 'firefox57', 'safari11', 'edge18'],
+      target: ['chrome58'], 
+      treeshake: true,
+      // external:['react', 'react-dom'],
+      // dts: true,
+    },
+    {
+      bundle: true,
+      clean: true,
+      entry: {
         serviceworker: path.resolve(PACKAGE_DIR, './src/serviceworker/index.ts'),
       },
       env: {
@@ -51,8 +102,8 @@ export default defineConfig(async (): Promise<Options[]> => {
         }),
       ],
       format: [
-        'iife', 
-        // "esm"
+        // 'iife', 
+        "esm"
       ],
       loader: {
         '.json?file': 'file',
@@ -62,13 +113,14 @@ export default defineConfig(async (): Promise<Options[]> => {
       minify: true,
       outDir: OUTPUT_DIR,
       platform: 'browser',
-      shims: true,
+      shims: false,
       sourcemap: 'inline',
       splitting: true,
       // target: ['chrome58', 'firefox57', 'safari11', 'edge18'],
       target: ['chrome58'], 
       treeshake: true,
-      external:['react', 'react-dom']
+      // external:['react', 'react-dom'],
+      // dts: true,
     },
   ];
 });
