@@ -30,6 +30,7 @@ const _Div = styled.img<{
 }>`
   width: ${({ $width }) => addUnitIfNeeded($width)};
   height: ${({ $height }) => addUnitIfNeeded($height)};
+  background: #999;
   display: block;
 `;
 

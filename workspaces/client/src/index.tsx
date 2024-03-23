@@ -12,7 +12,7 @@ import { registerServiceWorker } from './utils/registerServiceWorker';
 
 const main = async () => {
   await registerServiceWorker();
-  await preloadImages(); // TODO 必要かも
+  await preloadImages(process.env['PATH_LIST']?.split(",")); // TODO 必要かも
  const ReactDOM = await import("react-dom/client")
   const root = document.getElementById("root")
     ReactDOM.hydrateRoot(root!,

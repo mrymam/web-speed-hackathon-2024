@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { Box } from '../../../foundation/components/Box';
 import { Flex } from '../../../foundation/components/Flex';
-import { Image } from '../../../foundation/components/Image';
+import { Image, ImageSkeleton } from '../../../foundation/components/Image';
 import { Link } from '../../../foundation/components/Link';
 import { Separator } from '../../../foundation/components/Separator';
 import { Spacer } from '../../../foundation/components/Spacer';
@@ -62,6 +62,39 @@ export const EpisodeListItem: React.FC<Props> = ({ bookId, episodeId, episode}) 
               </Flex>
               <Text as="p" color={Color.MONO_80} typography={Typography.NORMAL12}>
                 {episode.description}
+              </Text>
+            </Flex>
+          </Box>
+        </Flex>
+        <Spacer height={Space * 1.5} />
+        <Separator />
+      </_Link>
+    </_Wrapper>
+  );
+};
+
+export const EpisodeListItemSkelton: React.FC = () => {
+  return (
+    <_Wrapper>
+      <_Link>
+        <Spacer height={Space * 1.5} />
+        <Flex align="flex-start" gap={Space * 2.5} justify="flex-start">
+          <_ImgWrapper>
+            <ImageSkeleton height={96} objectFit="cover" width={96} />
+          </_ImgWrapper>
+          <Box width="100%">
+            <Flex align="flex-start" direction="column" gap={Space * 1} justify="flex-start">
+              <Flex align="center" justify="flex-start">
+                <Text color={Color.MONO_100} flexShrink={0} typography={Typography.NORMAL16} weight="bold">
+                  第1話
+                </Text>
+                <Spacer width={Space * 2} />
+                <Text color={Color.MONO_80} typography={Typography.NORMAL14} weight="bold">
+                  - hoghoge -
+                </Text>
+              </Flex>
+              <Text as="p" color={Color.MONO_80} typography={Typography.NORMAL12}>
+                episode description
               </Text>
             </Flex>
           </Box>

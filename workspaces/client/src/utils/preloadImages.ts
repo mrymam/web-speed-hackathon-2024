@@ -4,12 +4,11 @@ async function wait(milliseconds: number) {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 }
 
-export async function preloadImages() {
-  if (process.env['PATH_LIST'] == null) {
-    return;
-  }
-
-  const imagePathList: string[] = process.env['PATH_LIST'].split(',').filter((imagePath) => {
+export async function preloadImages(images: string[]|undefined) {
+  if (images == undefined || images.length == 0) {
+    return
+  }  
+  const imagePathList: string[] = images.filter((imagePath) => {
     const extension = path.parse(imagePath).ext.toLowerCase();
     return ['.bmp', '.jpg', '.jpeg', '.gif', '.png', '.webp', '.avif'].includes(extension);
   });
