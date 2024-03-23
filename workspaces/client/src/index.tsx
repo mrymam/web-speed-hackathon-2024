@@ -1,6 +1,6 @@
 // import './side-effects';
 
-import $ from 'jquery';
+// import $ from 'jquery';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { SWRConfig } from 'swr';
@@ -12,18 +12,40 @@ import { registerServiceWorker } from './utils/registerServiceWorker';
 
 const main = async () => {
   await registerServiceWorker();
-  // await preloadImages();
+  await preloadImages();
 
-  $(document).ready(() => {
-    ReactDOM.hydrateRoot(
-      $('#root').get(0)!,
+  const root = document.getElementById("root")
+    ReactDOM.hydrateRoot(root!,
+      // $('#root').get(0)!,
       <SWRConfig value={{ revalidateIfStale: true, revalidateOnFocus: false, revalidateOnReconnect: false }}>
         <BrowserRouter>
           <ClientApp />
         </BrowserRouter>
       </SWRConfig>,
     );
-  });
+
+  // if (document.readyState === "complete") {
+  //   const root = document.getElementById("root")
+  //   ReactDOM.hydrateRoot(root!,
+  //     // $('#root').get(0)!,
+  //     <SWRConfig value={{ revalidateIfStale: true, revalidateOnFocus: false, revalidateOnReconnect: false }}>
+  //       <BrowserRouter>
+  //         <ClientApp />
+  //       </BrowserRouter>
+  //     </SWRConfig>,
+  //   );
+  // }
+
+  // $(document).ready(() => {
+  //   ReactDOM.hydrateRoot(
+  //     $('#root').get(0)!,
+  //     <SWRConfig value={{ revalidateIfStale: true, revalidateOnFocus: false, revalidateOnReconnect: false }}>
+  //       <BrowserRouter>
+  //         <ClientApp />
+  //       </BrowserRouter>
+  //     </SWRConfig>,
+  //   );
+  // });
 };
 
 main().catch(console.error);
