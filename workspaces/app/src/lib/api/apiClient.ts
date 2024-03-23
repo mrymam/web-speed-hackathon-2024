@@ -12,3 +12,13 @@ const createAxiosInstance = () => {
 };
 
 export const apiClient = createAxiosInstance();
+
+const createAxiosStaticInstance = () => {
+  const instance = axios.create({
+    baseURL: process.env['API_URL'] || '/',
+  });
+
+  return instance;
+};
+
+export const apiStaticClient = createAxiosStaticInstance();
