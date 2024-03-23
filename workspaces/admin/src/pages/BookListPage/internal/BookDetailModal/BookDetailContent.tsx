@@ -42,6 +42,7 @@ export const BookDetailContent: React.FC<BookDetailContentProps> = ({ book, onCl
           alt={book.name}
           aspectRatio="3 / 4"
           height={256}
+          loading='eager'
           objectFit="cover"
           src={getImageUrl({ format: 'jpg', imageId: book.image.id })}
           width={192}

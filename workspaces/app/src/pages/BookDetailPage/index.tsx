@@ -7,11 +7,11 @@ import invariant from 'tiny-invariant';
 
 import { FavoriteBookAtomFamily } from '../../features/book/atoms/FavoriteBookAtomFamily';
 import { useBook } from '../../features/book/hooks/useBook';
-import { EpisodeListItem } from '../../features/episode/components/EpisodeListItem';
+import { EpisodeListItem, EpisodeListItemSkelton } from '../../features/episode/components/EpisodeListItem';
 import { useEpisodeList } from '../../features/episode/hooks/useEpisodeList';
 import { Box } from '../../foundation/components/Box';
 import { Flex } from '../../foundation/components/Flex';
-import { Image } from '../../foundation/components/Image';
+import { Image, ImageSkeleton } from '../../foundation/components/Image';
 import { Link } from '../../foundation/components/Link';
 import { Separator } from '../../foundation/components/Separator';
 import { Spacer } from '../../foundation/components/Spacer';
@@ -125,10 +125,61 @@ const BookDetailPage: React.FC = () => {
 
 const BookDetailPageWithSuspense: React.FC = () => {
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<BookDetailPageSkelton />}>
       <BookDetailPage />
     </Suspense>
   );
 };
 
-export { BookDetailPageWithSuspense as BookDetailPage };
+export { BookDetailPageWithSuspense as BookDetailPage, BookDetailPageSkelton };
+
+const BookDetailPageSkelton: React.FC = () => {
+  return (
+    <Box height="100%" position="relative" px={Space * 2}>
+      <_HeadingWrapper aria-label="作品情報">
+        <ImageSkeleton height={256} objectFit="cover" width={192} />
+        <Flex align="flex-start" direction="column" gap={Space * 1} justify="flex-end">
+          <Box>
+            <Text color={Color.MONO_100} typography={Typography.NORMAL20} weight="bold">
+              book name
+            </Text>
+            <Spacer height={Space * 1} />
+            <Text as="p" color={Color.MONO_100} typography={Typography.NORMAL14}>
+              book description
+            </Text>
+          </Box>
+
+          <Spacer height={Space * 1} />
+
+          <_AuthorWrapper>
+            <ImageSkeleton height={32} objectFit="cover" width={32} />
+            <Text color={Color.MONO_100} typography={Typography.NORMAL14}>
+              author name
+            </Text>
+          </_AuthorWrapper>
+        </Flex>
+      </_HeadingWrapper>
+
+      {/* <BottomNavigator
+        bookId={""}
+        isFavorite={false}
+        latestEpisodeId={''}
+        onClickFav={()=>{}}
+      /> */}
+
+      <Separator />
+      <section aria-label="エピソード一覧">
+        <Flex align="center" as="ul" direction="column" justify="center">
+          <EpisodeListItemSkelton />
+          <EpisodeListItemSkelton />
+          <EpisodeListItemSkelton />
+          <EpisodeListItemSkelton />
+          <EpisodeListItemSkelton />
+          <EpisodeListItemSkelton />
+          <EpisodeListItemSkelton />
+          <EpisodeListItemSkelton />
+        </Flex>
+      </section>
+    </Box>
+  )
+}
