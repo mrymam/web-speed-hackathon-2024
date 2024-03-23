@@ -9,13 +9,14 @@ export const DialogContentAtom = atom(
   },
   (_get, set, content: JSX.Element | null) => {
     const isOpen = content != null;
-
-    if (isOpen) {
-      $('body').css('overflow', 'hidden');
-    } else {
-      $('body').css('overflow', 'scroll');
+    const body = document.getElementById("body")
+    if (body != null) {
+      if (isOpen) {
+        body.style.overflow = "hidden"
+      } else {
+        body.style.overflow = "scroll"
+      }
     }
-
     set(StateAtom, content);
   },
 );
