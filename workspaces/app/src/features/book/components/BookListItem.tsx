@@ -11,6 +11,7 @@ import { useImage } from '../../../foundation/hooks/useImage';
 import { Color, Radius, Space, Typography } from '../../../foundation/styles/variables';
 import { useBook } from '../hooks/useBook';
 import type { GetAuthorResponse_book } from '@wsh-2024/schema/src/api/authors/GetAuthorResponse';
+import { GetBookListResponse_book } from '@wsh-2024/schema/src/api/books/GetBookListResponse';
 
 const _Wrapper = styled.li`
   width: 100%;
@@ -30,7 +31,7 @@ const _ImgWrapper = styled.div`
 
 type Props = {
   bookId: string;
-  book: GetAuthorResponse_book,
+  book: GetAuthorResponse_book | GetBookListResponse_book,
 };
 
 export const BookListItem: React.FC<Props> = ({ bookId, book }) => {
