@@ -1,4 +1,4 @@
-import type moment from 'moment-timezone';
+import type moment from 'moment';
 
 const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'] as const;
 

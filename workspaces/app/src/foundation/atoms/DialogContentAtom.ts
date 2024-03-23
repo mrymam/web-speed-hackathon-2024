@@ -1,5 +1,5 @@
 import { atom } from 'jotai';
-import $ from 'jquery';
+// import $ from 'jquery';
 
 const StateAtom = atom<JSX.Element | null>(null);
 
