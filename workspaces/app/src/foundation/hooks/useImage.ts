@@ -7,7 +7,7 @@ export const useImage = ({ height, imageId, width }: { height: number; imageId: 
     const dpr = window.devicePixelRatio;
 
     const img = new Image();
-    img.src = getImageUrl({
+    return getImageUrl({
       format: 'jpg',
       height: height * dpr,
       imageId,
