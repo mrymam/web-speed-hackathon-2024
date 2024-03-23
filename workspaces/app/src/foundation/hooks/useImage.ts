@@ -9,7 +9,7 @@ export const useImage = ({ height, imageId, width }: { height: number; imageId: 
     const img = new Image();
     return getImageUrl({
       // format: 'jpg',
-      format: 'avif',
+      format: 'jxl',
       height: height * dpr,
       imageId,
       width: width * dpr,
