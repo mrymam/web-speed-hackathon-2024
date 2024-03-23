@@ -14,8 +14,8 @@ export default defineConfig(async (): Promise<Options[]> => {
   const OUTPUT_DIR = path.resolve(PACKAGE_DIR, './dist');
 
   const SEED_IMAGE_DIR = path.resolve(WORKSPACE_DIR, './workspaces/server/seeds/images');
-  const IMAGE_PATH_LIST = fs.readdirSync(SEED_IMAGE_DIR).map((file) => `/images/${file}`);
-
+  // const IMAGE_PATH_LIST = fs.readdirSync(SEED_IMAGE_DIR).map((file) => `/images/${file}`);
+  const IMAGE_PATH_LIST = ["/assets/hero.avif"]
   return [
     {
       bundle: true,
@@ -67,7 +67,7 @@ export default defineConfig(async (): Promise<Options[]> => {
       // target: ['chrome58', 'firefox57', 'safari11', 'edge18'],
       target: ['chrome58'], 
       treeshake: true,
-      // external:['react', 'react-dom'],
+      external:['react', 'react-dom'],
       // dts: true,
     },
     {

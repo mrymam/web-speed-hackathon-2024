@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import { styled } from 'styled-components';
 
 import { Flex } from '../../../foundation/components/Flex';
-import { Image } from '../../../foundation/components/Image';
+import { Image, ImageSkeleton } from '../../../foundation/components/Image';
 import { Link } from '../../../foundation/components/Link';
 import { Text } from '../../../foundation/components/Text';
 import { useImage } from '../../../foundation/hooks/useImage';
@@ -57,11 +57,11 @@ const FeatureCard: React.FC<Props> = ({ bookId, book }) => {
 
   return (
     <_Wrapper href={`/books/${bookId}`}>
+       <_ImgWrapper>
       {imageUrl != null && (
-        <_ImgWrapper>
           <Image alt={book.image.alt} height={96} objectFit="cover" src={imageUrl} width={96} />
-        </_ImgWrapper>
       )}
+      </_ImgWrapper>
 
       <_ContentWrapper>
         <Text color={Color.MONO_100} typography={Typography.NORMAL16} weight="bold">
@@ -86,6 +86,7 @@ const FeatureCard: React.FC<Props> = ({ bookId, book }) => {
   );
 };
 
+
 const FeatureCardWithSuspense: React.FC<Props> = (props) => {
   return (
     <Suspense fallback={null}>
@@ -95,3 +96,31 @@ const FeatureCardWithSuspense: React.FC<Props> = (props) => {
 };
 
 export { FeatureCardWithSuspense as FeatureCard };
+
+const FeatureCardSkeleton: React.FC = () => {
+  return (
+    <_Wrapper>
+      <_ImgWrapper>
+          <ImageSkeleton height={96} objectFit="cover" width={96} />
+      </_ImgWrapper>
+
+      <_ContentWrapper>
+        <Text color={Color.MONO_100} typography={Typography.NORMAL16} weight="bold">
+          book name
+        </Text>
+        <Text as="p" color={Color.MONO_100} typography={Typography.NORMAL14}>
+          近頃自我とか自覚とか唱えていくら自分の勝手な真似をしても構わないという符徴に使うようですが、その中に
+        </Text>
+
+        <Flex align="center" gap={Space * 1} justify="flex-end">
+          <ImageSkeleton height={32} objectFit="cover" width={32} />
+          <Text color={Color.MONO_100} typography={Typography.NORMAL14}>
+            author name
+          </Text>
+        </Flex>
+      </_ContentWrapper>
+    </_Wrapper>
+  )
+}
+
+export { FeatureCardSkeleton}

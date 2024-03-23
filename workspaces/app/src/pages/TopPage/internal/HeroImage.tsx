@@ -7,9 +7,10 @@ const _Wrapper = styled.div`
 
 const _Image = styled.img`
   aspect-ratio: 16 / 9;
-  display: inline-block;
   width: 100%;
 `;
+
+// display: inline-block;
 
 export const HeroImage: React.FC = () => {
   const url = "/assets/hero.avif"
