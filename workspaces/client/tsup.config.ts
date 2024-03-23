@@ -50,10 +50,13 @@ export default defineConfig(async (): Promise<Options[]> => {
           },
         }),
       ],
-      format: 'iife',
+      format: [
+        'iife', 
+        // "esm"
+      ],
       loader: {
         '.json?file': 'file',
-        '.wasm': 'binary',
+        '.wasm': 'binary', 
       },
       metafile: true,
       minify: true,
@@ -64,7 +67,8 @@ export default defineConfig(async (): Promise<Options[]> => {
       splitting: true,
       // target: ['chrome58', 'firefox57', 'safari11', 'edge18'],
       target: ['chrome58'], 
-      treeshake: false,
+      treeshake: true,
+      external:['react', 'react-dom']
     },
   ];
 });

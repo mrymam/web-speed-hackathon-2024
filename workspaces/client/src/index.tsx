@@ -1,19 +1,19 @@
 // import './side-effects';
 
 // import $ from 'jquery';
-import ReactDOM from 'react-dom/client';
+// import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { SWRConfig } from 'swr';
 
 import { ClientApp } from '@wsh-2024/app/src/index';
 
-import { preloadImages } from './utils/preloadImages';
+// import { preloadImages } from './utils/preloadImages';
 import { registerServiceWorker } from './utils/registerServiceWorker';
 
 const main = async () => {
   await registerServiceWorker();
-  await preloadImages();
-
+  // await preloadImages(); // TODO 必要かも
+ const ReactDOM = await import("react-dom/client")
   const root = document.getElementById("root")
     ReactDOM.hydrateRoot(root!,
       // $('#root').get(0)!,
