@@ -6,22 +6,30 @@ import { BookListItem } from '../../../features/book/components/BookListItem';
 import { Flex } from '../../../foundation/components/Flex';
 import { Text } from '../../../foundation/components/Text';
 import { Color, Typography } from '../../../foundation/styles/variables';
-import { isContains } from '../../../lib/filter/isContains';
+// import { isContains } from '../../../lib/filter/isContains';
 
 type Props = {
   books: GetBookListResponse;
   keyword: string;
 };
 
-export const SearchResult: React.FC<Props> = ({ books, keyword }) => {
-  const relatedBooks = useMemo(() => {
-    if (keyword === '') {
-      return books;
-    }
-    return books.filter((book) => {
-      return isContains({ query: keyword, target: book.name }) || isContains({ query: keyword, target: book.nameRuby });
-    });
-  }, [books, keyword]);
+export const SearchResult: React.FC<Props> = ({ 
+  books, 
+  keyword,
+}) => {
+  const relatedBooks = !books ? [] : books
+  // console.log("relatedBooks", relatedBooks, typeof relatedBooks)
+  // const relatedBooks = useMemo(() => {
+  //   // if (keyword === '') {
+  //   //   return books;
+  //   // }
+  //   // return books.filter((book) => {
+  //   //   return isContains({ query: keyword, target: book.name }) || isContains({ query: keyword, target: book.nameRuby });
+  //   // });
+  // }, [
+  //   // books, 
+  //   keyword
+  // ]);
 
   return (
     <Flex align="center" as="ul" direction="column" justify="center">

@@ -22,6 +22,7 @@ export default defineConfig(async (): Promise<Options[]> => {
       clean: true,
       entry: {
         client: path.resolve(PACKAGE_DIR, './src/index.tsx'),
+        admin:  path.resolve(PACKAGE_DIR, './src/index_admin.tsx'),
         serviceworker: path.resolve(PACKAGE_DIR, './src/serviceworker/index.ts'),
       },
       env: {
@@ -60,8 +61,9 @@ export default defineConfig(async (): Promise<Options[]> => {
       platform: 'browser',
       shims: true,
       sourcemap: 'inline',
-      splitting: false,
-      target: ['chrome58', 'firefox57', 'safari11', 'edge18'],
+      splitting: true,
+      // target: ['chrome58', 'firefox57', 'safari11', 'edge18'],
+      target: ['chrome58'], 
       treeshake: false,
     },
   ];
