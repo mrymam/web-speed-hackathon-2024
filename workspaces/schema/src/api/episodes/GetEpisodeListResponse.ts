@@ -10,6 +10,7 @@ const episodeSchema = createSelectSchema(episode)
   id: true,
   name: true,
   nameRuby: true,
+  imageId: true,
 })
 .extend({
   book: createSelectSchema(book)

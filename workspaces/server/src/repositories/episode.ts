@@ -39,6 +39,7 @@ class EpisodeRepository implements EpisodeRepositoryInterface {
           id: true,
           name: true,
           nameRuby: true,
+          imageId: true,
         },
         where(episode, { eq }) {
           return eq(episode.id, options.params.episodeId);
@@ -121,6 +122,7 @@ class EpisodeRepository implements EpisodeRepositoryInterface {
           id: true,
           name: true,
           nameRuby: true,
+          imageId: true,
         },
         limit: options.query.limit,
         offset: options.query.offset,
