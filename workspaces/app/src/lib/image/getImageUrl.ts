@@ -5,6 +5,10 @@ type Params = {
   width?: number;
 };
 
+export function getStaticImageUrl({  imageId, format }: Params): string {
+  return `/images/${imageId}.${format}`;
+}
+
 export function getImageUrl({ format, height, imageId, width }: Params): string {
   const url = new URL(`/images/${imageId}`, location.href);
 

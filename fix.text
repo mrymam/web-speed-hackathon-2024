@@ -1,0 +1,6 @@
+mkdir ../tmp
+find . -name "*.jxl" | sed  's/.jxl//g' | xargs -I% djxl %.jxl  ../tmp/%.jpg
+cd ../tmp
+find . -name "*.jpg" | sed  's/.jpg//g' | xargs -I% cwebp -q 50 -lossless %.jpg -o %.webp
+cd ..
+cp ./tmp/*.webp images

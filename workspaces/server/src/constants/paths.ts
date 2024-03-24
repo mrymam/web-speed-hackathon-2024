@@ -17,3 +17,5 @@ export const CLIENT_STATIC_PATH = path.resolve(WORKSPACE_DIR, './workspaces/clie
 export const INDEX_HTML_PATH = path.resolve(PACKAGE_DIR, './index.html');
 
 export const INDEX_ADMIN_HTML_PATH = path.resolve(PACKAGE_DIR, './index_admin.html');
+
+export const SERVER_IMAGE_PATH = path.resolve(WORKSPACE_DIR, './workspaces/server');

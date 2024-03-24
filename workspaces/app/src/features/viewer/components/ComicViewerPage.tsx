@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { decrypt } from '@wsh-2024/image-encrypt/src/decrypt';
 
-import { getImageUrl } from '../../../lib/image/getImageUrl';
+import { getImageUrl, getStaticImageUrl } from '../../../lib/image/getImageUrl';
 
 const _Canvas = styled.canvas`
   height: 100%;
@@ -21,11 +21,11 @@ export const ComicViewerPage = ({ pageImageId }: Props) => {
   const ref = useRef<HTMLCanvasElement>(null);
   useAsync(async () => {
     const image = new Image();
-    image.src = getImageUrl({
-      format: 'webp',
-      imageId: pageImageId,
-      // width: 100,
-    });
+    // image.src = getImageUrl({
+    //   format: 'webp',
+    //   imageId: pageImageId,
+    // });
+    image.src = getStaticImageUrl({format: 'avif', imageId: pageImageId})
     await image.decode();
 
     const canvas = ref.current!;
