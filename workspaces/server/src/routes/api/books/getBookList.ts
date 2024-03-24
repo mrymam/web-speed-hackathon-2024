@@ -41,14 +41,18 @@ app.openapi(route, async (c) => {
     throw res.error;
   }
   let books = res.value
-  if (!!query.name || !!query.authorName) {
+  console.log("query",query.q)
+  // console.log(isContains({ query: "コノ", target: "このあどけない恋愛に日常を" }))
+  if (!!query.q) {
+    const name = query.q
     books = books.filter((book) => {
-      if (!!query.name && isContains({ query: query.name, target: book.name })) {
+      // console.log(isContains({ query: name, target: book.name }), name, book.name)
+      if (isContains({ query: name, target: book.name })) {
         return true
       }
-      if (!!query.authorName && isContains({ query: query.authorName, target: book.nameRuby })) {
+      if (isContains({ query: name, target: book.nameRuby })) {
         return true
-      } 
+      }
       return false
   });
   }

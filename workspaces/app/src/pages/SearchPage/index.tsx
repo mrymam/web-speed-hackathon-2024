@@ -33,8 +33,7 @@ const SearchPage: React.FC = () => {
   );
 
   const { data: books } = useBookList({ query: {
-    name: keyword,
-    authorName: keyword,
+    q: keyword,
   }});
 
   useEffect(() => {
