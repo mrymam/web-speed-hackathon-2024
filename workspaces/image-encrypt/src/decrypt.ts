@@ -27,5 +27,5 @@ export async function decrypt({
     const destX = columnOffsetPixel + to.column * columnPixel;
     const destY = rowOffsetPixel + to.row * rowPixel;
     exportCanvasContext.drawImage(sourceImage, srcX, srcY, columnPixel, rowPixel, destX, destY, columnPixel, rowPixel);
-  }j
+  }
 }
