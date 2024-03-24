@@ -11,6 +11,7 @@ import { useImage } from '../../../foundation/hooks/useImage';
 import { Color, Radius, Space, Typography } from '../../../foundation/styles/variables';
 import { useEpisode } from '../hooks/useEpisode';
 import type { GetEpisodeListResponse_episode } from '@wsh-2024/schema/src/api/episodes/GetEpisodeListResponse';
+import { GetBookResponse_episode } from '@wsh-2024/schema/src/api/books/GetBookResponse';
 
 const _Wrapper = styled.li`
   width: 100%;
@@ -31,13 +32,12 @@ const _ImgWrapper = styled.div`
 type Props = {
   bookId: string;
   episodeId: string;
-  episode: GetEpisodeListResponse_episode;
+  episode: GetEpisodeListResponse_episode | GetBookResponse_episode;
 };
 
 export const EpisodeListItem: React.FC<Props> = ({ bookId, episodeId, episode}) => {
   // const { data: episode } = useEpisode({ params: { episodeId } });
-
-  const imageUrl = useImage({ height: 96, imageId: episode.image.id, width: 96 });
+  const imageUrl = useImage({ height: 96, imageId: episode.imageId, width: 96 });
 
   return (
     <_Wrapper>

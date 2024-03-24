@@ -3,6 +3,15 @@ import type { z } from 'zod';
 
 import { author, book, episode, image } from '../../models';
 
+const episodeSchema = createSelectSchema(episode)
+.pick({
+  id: true,
+  imageId: true,
+  name: true,
+  chapter: true,
+  description: true,
+})
+
 export const GetBookResponseSchema = createSelectSchema(book)
   .pick({
     description: true,
@@ -23,11 +32,7 @@ export const GetBookResponseSchema = createSelectSchema(book)
           id: true,
         }),
       }),
-    episodes: createSelectSchema(episode)
-      .pick({
-        id: true,
-      })
-      .array(),
+    episodes: episodeSchema.array(),
     image: createSelectSchema(image).pick({
       alt: true,
       id: true,
@@ -35,3 +40,4 @@ export const GetBookResponseSchema = createSelectSchema(book)
   });
 
 export type GetBookResponse = z.infer<typeof GetBookResponseSchema>;
+export type GetBookResponse_episode = z.infer<typeof episodeSchema>; 
