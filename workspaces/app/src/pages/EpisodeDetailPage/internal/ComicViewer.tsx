@@ -1,7 +1,7 @@
 import floor from 'lodash/floor';
 import clamp from 'lodash/clamp';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useInterval, useUpdate } from 'react-use';
 import styled from 'styled-components';
 
@@ -36,13 +36,15 @@ type Props = {
 
 export const ComicViewer: React.FC<Props> = ({ episodeId }) => {
   // 画面のリサイズに合わせて再描画する
-  const rerender = useUpdate();
-  useInterval(rerender, 0);
+  // const rerender = useUpdate();
+  // useInterval(rerender, 0);
 
   const [el, ref] = useState<HTMLDivElement | null>(null);
 
   // コンテナの幅
   const cqw = (el?.getBoundingClientRect().width ?? 0) / 100;
+
+  console.log(cqw)
 
   // 1画面に表示できるページ数（1 or 2）
   const pageCountParView = 100 * cqw <= 2 * MIN_PAGE_WIDTH ? 1 : 2;
@@ -56,7 +58,14 @@ export const ComicViewer: React.FC<Props> = ({ episodeId }) => {
   return (
     <_Container ref={ref}>
       <_Wrapper $maxHeight={viewerHeight}>
-        <ComicViewerCore episodeId={episodeId} />
+        <ComicViewerCore 
+          episodeId={episodeId} 
+          
+          pageCountParView={pageCountParView}  
+          candidatePageWidth={candidatePageWidth}
+          candidatePageHeight={candidatePageHeight}
+          viewerHeight={viewerHeight} 
+        />
       </_Wrapper>
     </_Container>
   );

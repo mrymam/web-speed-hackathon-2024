@@ -19,18 +19,20 @@ type Props = {
 
 export const ComicViewerPage = ({ pageImageId }: Props) => {
   const ref = useRef<HTMLCanvasElement>(null);
-
   useAsync(async () => {
     const image = new Image();
     image.src = getImageUrl({
       format: 'webp',
       imageId: pageImageId,
+      // width: 100,
     });
     await image.decode();
 
     const canvas = ref.current!;
     canvas.width = image.naturalWidth;
     canvas.height = image.naturalHeight;
+    // canvas.width = 1075;
+    // canvas.height = 1518;
     const ctx = canvas.getContext('2d')!;
 
     decrypt({
