@@ -139,6 +139,7 @@ const ComicViewerCore: React.FC<Props> = ({ episodeId, viewerHeight, pageCountPa
     let scrollToLeftWhenScrollEnd = 0;
 
     const handlePointerDown = (ev: PointerEvent) => {
+      console.log("handlePointerDown")
       const scrollView = ev.currentTarget as HTMLDivElement;
       isPressed = true;
       scrollView.style.cursor = 'grabbing';
@@ -147,38 +148,33 @@ const ComicViewerCore: React.FC<Props> = ({ episodeId, viewerHeight, pageCountPa
     };
 
     const handlePointerMove = (ev: PointerEvent) => {
+      console.log("handlePointerMove")
       if (isPressed) {
         const scrollView = ev.currentTarget as HTMLDivElement;
+        console.log(ev.movementX)
         scrollView.scrollBy({
           behavior: 'instant',
           left: -1 * ev.movementX,
         });
-        scrollToLeftWhenScrollEnd = getScrollToLeft({ pageCountParView, pageWidth, scrollView });
+        // scrollView.scrollTo({
+        //   behavior: 'smooth',
+        //   left:  -1 * ev.movementX,
+        // });
+        console.log("handlePointerMove pressed")
+        // scrollToLeftWhenScrollEnd = getScrollToLeft({ pageCountParView, pageWidth, scrollView });
       }
     };
 
-    const handlePointerUp = (ev: PointerEvent) => {
-      const scrollView = ev.currentTarget as HTMLDivElement;
-      isPressed = false;
-      scrollView.style.cursor = 'grab';
-      scrollView.releasePointerCapture(ev.pointerId);
-      scrollToLeftWhenScrollEnd = getScrollToLeft({ pageCountParView, pageWidth, scrollView });
-    };
-
-    const handleScroll = (ev: Pick<Event, 'currentTarget'>) => {
-      const scrollView = ev.currentTarget as HTMLDivElement;
-      scrollToLeftWhenScrollEnd = getScrollToLeft({ pageCountParView, pageWidth, scrollView });
-    };
-
-    let scrollEndTimer = -1;
-    abortController.signal.addEventListener('abort', () => window.clearTimeout(scrollEndTimer), { once: true });
-
     const handleScrollEnd = (ev: Pick<Event, 'currentTarget'>) => {
+      console.log("handleScrollEnd")
       const scrollView = ev.currentTarget as HTMLDivElement;
 
       // マウスが離されるまではスクロール中とみなす
       if (isPressed) {
-        scrollEndTimer = window.setTimeout(() => handleScrollEnd({ currentTarget: scrollView }), 0);
+        scrollEndTimer = window.setTimeout(() => {
+          console.log("handleScrollEnd")
+          handleScrollEnd({ currentTarget: scrollView })
+        }, 0);
         return;
       } else {
         scrollView.scrollBy({
@@ -188,8 +184,30 @@ const ComicViewerCore: React.FC<Props> = ({ episodeId, viewerHeight, pageCountPa
       }
     };
 
+    const handlePointerUp = (ev: PointerEvent) => {
+      console.log("handlePointerUp")
+      const scrollView = ev.currentTarget as HTMLDivElement;
+      isPressed = false;
+      scrollView.style.cursor = 'grab';
+      scrollView.releasePointerCapture(ev.pointerId);
+      scrollToLeftWhenScrollEnd = getScrollToLeft({ pageCountParView, pageWidth, scrollView });
+    };
+
+    const handleScroll = (ev: Pick<Event, 'currentTarget'>) => {
+      console.log("handleScroll")
+      const scrollView = ev.currentTarget as HTMLDivElement;
+      scrollToLeftWhenScrollEnd = getScrollToLeft({ pageCountParView, pageWidth, scrollView });
+    };
+
+    let scrollEndTimer = -1;
+    abortController.signal.addEventListener('abort', () => window.clearTimeout(scrollEndTimer), { once: true });
+    // const handleScrollEndInner = (ev: Pick<Event, 'currentTarget'>) => {
+    //   const scrollView = ev.currentTarget as HTMLDivElement;
+    // }
+
     let prevContentRect: DOMRectReadOnly | null = null;
     const handleResize = (entries: ResizeObserverEntry[]) => {
+      console.log("handleResize")
       if (prevContentRect != null && prevContentRect.width !== entries[0]?.contentRect.width) {
         requestAnimationFrame(() => {
           scrollView?.scrollBy({
