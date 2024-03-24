@@ -12,6 +12,7 @@ export async function decrypt({
   sourceImage: CanvasImageSource;
   sourceImageInfo: { height: number; width: number };
 }): Promise<void> {
+  console.log("decrypt")
   const columnOffsetPixel = Math.floor((sourceImageInfo.width % COLUMN_SIZE) / 2);
   const columnPixel = Math.floor(sourceImageInfo.width / COLUMN_SIZE);
 

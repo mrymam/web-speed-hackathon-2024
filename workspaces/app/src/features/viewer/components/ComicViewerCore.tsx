@@ -96,12 +96,18 @@ const _Wrapper = styled.div<{
 
 type Props = {
   episodeId: string;
+  viewerHeight: number;
+  pageCountParView: number;
+  candidatePageWidth: number;
+  candidatePageHeight: number;
 };
 
-const ComicViewerCore: React.FC<Props> = ({ episodeId }) => {
+const ComicViewerCore: React.FC<Props> = ({ episodeId, viewerHeight, pageCountParView, candidatePageWidth, candidatePageHeight }) => {
   // 画面のリサイズに合わせて再描画する
-  const rerender = useUpdate();
-  useInterval(rerender, 0);
+  // const rerender = useUpdate();
+  // useInterval(rerender, 1000);
+
+  console.log("page")
 
   const { data: episode } = useEpisode({ params: { episodeId } });
 
@@ -110,13 +116,16 @@ const ComicViewerCore: React.FC<Props> = ({ episodeId }) => {
 
   // コンテナの幅
   const cqw = (container?.getBoundingClientRect().width ?? 0) / 100;
-  // コンテナの高さ
-  const cqh = (container?.getBoundingClientRect().height ?? 0) / 100;
+  console.log("a", cqw)
 
+  // コンテナの高さ
+  // const cqh = (container?.getBoundingClientRect().height ?? 0) / 100;
+  // console.log("b", cqh)
+  // console.log("c", viewerHeight)
   // 1画面に表示できるページ数（1 or 2）
-  const pageCountParView = (100 * cqw) / (100 * cqh) < (2 * IMAGE_WIDTH) / IMAGE_HEIGHT ? 1 : 2;
+  // const pageCountParView = (100 * cqw) / (100 * cqh) < (2 * IMAGE_WIDTH) / IMAGE_HEIGHT ? 1 : 2;
   // ページの幅
-  const pageWidth = ((100 * cqh) / IMAGE_HEIGHT) * IMAGE_WIDTH;
+  const pageWidth = (viewerHeight / IMAGE_HEIGHT) * IMAGE_WIDTH;
   // 画面にページを表示したときに余る左右の余白
   const viewerPaddingInline =
     (100 * cqw - pageWidth * pageCountParView) / 2 +
@@ -206,6 +215,7 @@ const ComicViewerCore: React.FC<Props> = ({ episodeId }) => {
       abortController.abort();
     };
   }, [pageCountParView, pageWidth, scrollView]);
+  // console.log(episode.pages)
   return (
     <_Container ref={containerRef}>
       <_Wrapper ref={scrollViewRef} $paddingInline={viewerPaddingInline} $pageWidth={pageWidth}>
@@ -217,10 +227,13 @@ const ComicViewerCore: React.FC<Props> = ({ episodeId }) => {
   );
 };
 
-const ComicViewerCoreWithSuspense: React.FC<Props> = ({ episodeId }) => {
+const ComicViewerCoreWithSuspense: React.FC<Props> = (params) => {
   return (
     <Suspense fallback={<></>}>
-      <ComicViewerCore episodeId={episodeId} />
+      <ComicViewerCore 
+      // episodeId={episodeId}
+        {...params} 
+      />
     </Suspense>
   );
 };
