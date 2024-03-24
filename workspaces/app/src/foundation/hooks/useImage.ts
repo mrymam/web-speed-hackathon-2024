@@ -1,13 +1,13 @@
 import { useAsync } from 'react-use';
 
-import { getImageUrl } from '../../lib/image/getImageUrl';
+import { getImageUrl, getStaticImageUrl } from '../../lib/image/getImageUrl';
 
 export const useImage = ({ height, imageId, width }: { height: number; imageId: string; width: number }) => {
   const { value } = useAsync(async () => {
     const dpr = window.devicePixelRatio;
 
     const img = new Image();
-    return getImageUrl({
+    return getStaticImageUrl({
       // format: 'jpg',
       format: 'webp',
       height: height * dpr,
